@@ -72,9 +72,14 @@
             <version>5.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <groupId>org.springframework.boot</groupId>
         </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
