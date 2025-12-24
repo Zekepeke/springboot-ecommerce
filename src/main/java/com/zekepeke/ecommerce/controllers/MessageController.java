@@ -1,5 +1,6 @@
 package com.zekepeke.ecommerce.controllers;
 
+import com.zekepeke.ecommerce.entities.Message;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageController {
     @RequestMapping("/hello")
-    public String sayHello() {
-        return "Hello World!";
+    public Message sayHello() {
+        return new Message("Hello World!");
     }
 }
