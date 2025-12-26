@@ -3,6 +3,8 @@ package com.zekepeke.ecommerce.controllers;
 import com.zekepeke.ecommerce.entities.User;
 import com.zekepeke.ecommerce.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userRepository.findById(id).orElse(null);
+    // Using a ResponseEntity class to customize the response to return a 404
+    // when valid long but wrong id
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        var user = userRepository.findById(id).orElse(null);
+
+        if (user == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
+        }
+
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok(user);
     }
 }
