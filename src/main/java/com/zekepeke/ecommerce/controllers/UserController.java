@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/users/emails")
-    public Iterable<String> getAllEmails() {
-        return null;
+    public List<String> getAllEmails() {
+        return userRepository.findAllEmails();
     }
 }
