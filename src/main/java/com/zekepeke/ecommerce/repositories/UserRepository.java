@@ -9,4 +9,8 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Long> {
     @Query("SELECT u.email FROM User u")
     List<String> findAllEmails();
+
+    @Query("SELECT u.name FROM User u")
+    List<String> findAllUsers();
+
 }
