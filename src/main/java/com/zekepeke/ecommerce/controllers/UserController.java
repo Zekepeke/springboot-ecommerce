@@ -31,4 +31,9 @@ public class UserController {
         }
         return names;
     }
+
+    @GetMapping("/users/emails")
+    public Iterable<String> getAllEmails() {
+        return null;
+    }
 }
