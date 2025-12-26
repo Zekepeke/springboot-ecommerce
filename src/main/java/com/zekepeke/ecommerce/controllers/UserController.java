@@ -25,6 +25,10 @@ public class UserController {
 
     @GetMapping("/users/names")
     public List<String> getAllNames() {
-        return null;
+        List<String> names = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            names.add(user.getName());
+        }
+        return names;
     }
 }
