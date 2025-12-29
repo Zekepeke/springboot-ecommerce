@@ -1,5 +1,6 @@
 package com.zekepeke.ecommerce.controllers;
 
+import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.User;
 import com.zekepeke.ecommerce.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,11 @@ public class UserController {
     // no arguments since request mapping
     @GetMapping()
     // method: GET
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail()))
+                .toList();
     }
 
     @GetMapping("/names")
