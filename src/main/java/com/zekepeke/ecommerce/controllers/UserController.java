@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/{id}")
     // Using a ResponseEntity class to customize the response to return a 404
     // when valid long but wrong id
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         var user = userRepository.findById(id).orElse(null);
 
         if (user == null) {
@@ -53,8 +53,9 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-        return ResponseEntity.ok(user);
+//        return new ResponseEntity<>(user, HttpStatus.OK)
+        var userDto = new UserDto(user.getId(), user.getName(), user.getEmail());
+        return ResponseEntity.ok(userDto);
     }
 
 }
