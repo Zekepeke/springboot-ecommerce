@@ -27,7 +27,7 @@ public class UserController {
     @GetMapping()
     // method: GET
     public List<UserDto> getAllUsers(
-            @RequestParam(required = false, defaultValue = "") String sort
+            @RequestParam(required = false, defaultValue = "", name = "sort") String sort
     ) {
         if (!Set.of("name", "email").contains(sort)) {
             sort = "name";
