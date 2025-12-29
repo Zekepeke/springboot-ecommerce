@@ -1,5 +1,6 @@
 package com.zekepeke.ecommerce.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,6 +16,7 @@ public class UserDto {
     private String name;
     private String email;
     // Not part of the user object but a custom attribute
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
 
