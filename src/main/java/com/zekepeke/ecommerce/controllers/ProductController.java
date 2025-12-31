@@ -1,11 +1,17 @@
 package com.zekepeke.ecommerce.controllers;
 
 
+import com.zekepeke.ecommerce.dtos.ProductDto;
+import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.mappers.ProductMapper;
 import com.zekepeke.ecommerce.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -15,5 +21,13 @@ public class ProductController {
     private final ProductMapper productMapper;
 
 
-
+    @GetMapping("/{id}")
+    // method: GET
+    public ResponseEntity<ProductDto> getUser(@PathVariable Long id) {
+        var product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(productMapper.toDto(product));
+    }
 }
