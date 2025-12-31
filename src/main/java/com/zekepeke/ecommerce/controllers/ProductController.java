@@ -21,6 +21,32 @@ public class ProductController {
     private final ProductMapper productMapper;
 
 
+    @GetMapping
+    public ResponseEntity<ProductDto> getAllProducts(
+            @RequestParam(required = false, defaultValue = "", name = "sort") String id
+    ) {
+        if (id == null || id.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // try parsing
+        long parsedId;
+        try {
+            parsedId = Long.parseLong(id);
+        } catch (NumberFormatException ex) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var user = productRepository.findById(parsedId).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(productMapper.toDto(user));
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getUser(@PathVariable Long id) {
         var product = productRepository.findById(id).orElse(null);
