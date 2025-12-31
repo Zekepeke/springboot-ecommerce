@@ -22,7 +22,6 @@ public class ProductController {
 
 
     @GetMapping("/{id}")
-    // method: GET
     public ResponseEntity<ProductDto> getUser(@PathVariable Long id) {
         var product = productRepository.findById(id).orElse(null);
         if (product == null) {
