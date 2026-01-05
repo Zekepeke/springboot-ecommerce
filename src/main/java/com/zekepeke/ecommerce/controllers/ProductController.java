@@ -10,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @AllArgsConstructor
@@ -20,28 +22,10 @@ public class ProductController {
 
 
     @GetMapping
-    public ResponseEntity<ProductDto> getAllProducts(
+    public List<ProductDto> getAllProducts(
             @RequestParam(required = false, defaultValue = "", name = "categoryId") String id
     ) {
-        if (id == null || id.isBlank()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        // try parsing
-        long parsedId;
-        try {
-            parsedId = Long.parseLong(id);
-        } catch (NumberFormatException ex) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        var user = productRepository.findAll(Sortby).orElse(null);
-
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(productMapper.toDto(user));
+       return productRepository.findAll().stream().map(productMapper::toDto).toList();
     }
 
 
