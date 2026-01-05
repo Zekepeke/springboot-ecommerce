@@ -3,6 +3,7 @@ package com.zekepeke.ecommerce.controllers;
 
 import com.zekepeke.ecommerce.dtos.ProductDto;
 import com.zekepeke.ecommerce.dtos.UserDto;
+import com.zekepeke.ecommerce.entities.Product;
 import com.zekepeke.ecommerce.mappers.ProductMapper;
 import com.zekepeke.ecommerce.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,14 @@ public class ProductController {
     public List<ProductDto> getAllProducts(
             @RequestParam(required = false, defaultValue = "", name = "categoryId") Byte categoryId
     ) {
-       return productRepository.findAll().stream().map(productMapper::toDto).toList();
+        List<Product> products;
+
+        if (categoryId != null) {
+            products = productRepository.findByCategoryId(categoryId);
+        } else {
+            products = productRepository.findAll();
+        }
+       return products.stream().map(productMapper::toDto).toList();
     }
 
 
