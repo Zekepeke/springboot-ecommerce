@@ -26,6 +26,8 @@ public class ProductController {
     ) {
         List<Product> products;
 
+        // There are 3 queries when fetching without param as Hibernate does not join
+        // Can optimize by using a join to fetch all the products and the categories
         if (categoryId != null) {
             products = productRepository.findByCategoryId(categoryId);
         } else {
