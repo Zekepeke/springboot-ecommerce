@@ -23,7 +23,7 @@ public class ProductController {
 
     @GetMapping
     public List<ProductDto> getAllProducts(
-            @RequestParam(required = false, defaultValue = "", name = "categoryId") String id
+            @RequestParam(required = false, defaultValue = "", name = "categoryId") Byte categoryId
     ) {
        return productRepository.findAll().stream().map(productMapper::toDto).toList();
     }
