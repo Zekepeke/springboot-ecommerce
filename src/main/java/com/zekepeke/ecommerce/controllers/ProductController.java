@@ -2,12 +2,10 @@ package com.zekepeke.ecommerce.controllers;
 
 
 import com.zekepeke.ecommerce.dtos.ProductDto;
-import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.Product;
 import com.zekepeke.ecommerce.mappers.ProductMapper;
 import com.zekepeke.ecommerce.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
