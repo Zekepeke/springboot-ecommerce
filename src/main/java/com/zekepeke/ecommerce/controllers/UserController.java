@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,12 +70,17 @@ public class UserController {
 
     @PostMapping
     // Use the Request Body to get reuqest bodies like json, js, or html bodies from
-    public UserDto createUser(@RequestBody RegisterUserRequest userRequest) {
+    public ResponseEntity<UserDto> createUser(
+            @RequestBody RegisterUserRequest userRequest,
+            UriComponentsBuilder uriBuilder
+    ) {
         var user = userMapper.toEntity(userRequest);
         userRepository.save(user);
 
         var userDto = userMapper.toDto(user);
-        return userDto;
+        var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(userDto);
     }
 
 }
