@@ -69,8 +69,12 @@ public class UserController {
 
     @PostMapping
     // Use the Request Body to get reuqest bodies like json, js, or html bodies from
-    public RegisterUserRequest createUser(@RequestBody RegisterUserRequest userRequest) {
-        return userRequest;
+    public UserDto createUser(@RequestBody RegisterUserRequest userRequest) {
+        var user = userMapper.toEntity(userRequest);
+        userRepository.save(user);
+
+        var userDto = userMapper.toDto(user);
+        return userDto;
     }
 
 }
