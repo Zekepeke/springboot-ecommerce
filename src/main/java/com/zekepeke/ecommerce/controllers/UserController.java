@@ -27,11 +27,14 @@ public class UserController {
     @GetMapping()
     // method: GET
     public List<UserDto> getAllUsers(
+//            Use requestHeaders for any key value pairs as x-auth-token is a key with the value of 1234
+//            @RequestHeader(name = "x-auth-token") String authToken
             @RequestParam(required = false, defaultValue = "", name = "sort") String sort
     ) {
         if (!Set.of("name", "email").contains(sort)) {
             sort = "name";
         }
+
         return userRepository.findAll(Sort.by(sort))
                 .stream()
                 .map(user -> userMapper.toDto(user))
