@@ -1,5 +1,6 @@
 package com.zekepeke.ecommerce.mappers;
 
+import com.zekepeke.ecommerce.dtos.RegisterUserRequest;
 import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.User;
 import org.mapstruct.Mapper;
@@ -12,4 +13,5 @@ public interface UserMapper {
             expression = "java(java.time.LocalDateTime.now())"
     )
     UserDto toDto(User user);
+    User toEntity(RegisterUserRequest request);
 }

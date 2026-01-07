@@ -1,5 +1,6 @@
 package com.zekepeke.ecommerce.controllers;
 
+import com.zekepeke.ecommerce.dtos.RegisterUserRequest;
 import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.User;
 import com.zekepeke.ecommerce.mappers.UserMapper;
@@ -68,8 +69,8 @@ public class UserController {
 
     @PostMapping
     // Use the Request Body to get reuqest bodies like json, js, or html bodies from
-    public UserDto createUser(@RequestBody UserDto data) {
-        return data;
+    public RegisterUserRequest createUser(@RequestBody RegisterUserRequest userRequest) {
+        return userRequest;
     }
 
 }
