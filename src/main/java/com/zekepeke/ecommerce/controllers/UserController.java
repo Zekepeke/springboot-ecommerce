@@ -114,11 +114,13 @@ public class UserController {
     @PostMapping("/{id}/change-password")
     public ResponseEntity<Void> changePassword(
             @PathVariable(name = "id") Long id,
-            @RequestBody ChangePasswordRequest request
-            ) {
+            @RequestBody ChangePasswordRequest request) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) {
             return ResponseEntity.notFound().build();
+        }
+        if (!user.getPassword().equals(request.getOldPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return null;
     }
