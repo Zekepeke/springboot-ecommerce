@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UpdateUserRequest> updateUser(
+    public ResponseEntity<UserDto> updateUser(
             @PathVariable(name = "id") Long id,
             @RequestBody UpdateUserRequest request
             ) {
@@ -94,6 +94,9 @@ public class UserController {
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
+        userMapper.update(request, user);
+        userRepository.save(user);
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 
 }

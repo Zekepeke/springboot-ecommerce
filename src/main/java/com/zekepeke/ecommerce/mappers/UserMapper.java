@@ -6,6 +6,7 @@ import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -15,5 +16,5 @@ public interface UserMapper {
     )
     UserDto toDto(User user);
     User toEntity(RegisterUserRequest request);
-    User toObject(UpdateUserRequest update);
+    void update(UpdateUserRequest update, @MappingTarget User user);
 }
