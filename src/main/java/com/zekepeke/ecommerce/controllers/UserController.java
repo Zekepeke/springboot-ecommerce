@@ -84,4 +84,8 @@ public class UserController {
         return ResponseEntity.created(uri).body(userDto);
     }
 
+    public UserDto updateUser(UserDto userDto) {
+        return null;
+    }
+
 }
