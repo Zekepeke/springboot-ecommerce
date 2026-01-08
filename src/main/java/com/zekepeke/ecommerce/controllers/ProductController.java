@@ -102,17 +102,18 @@ public class ProductController {
             @PathVariable(name = "id") Long id,
             @RequestBody ProductDto request
     ) {
-        var product = productRepository.findById(id).orElse(null);
-        if (product == null) {
-            return ResponseEntity.notFound().build();
-        }
         var category = categoryRepository.findById(request.getCategoryId()).orElse(null);
         if (category == null) {
             return ResponseEntity.badRequest().build();
         }
+        var product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
         productMapper.update(request, product);
         product.setCategory(category);
         productRepository.save(product);
+        request.setId(product.getId());
         return ResponseEntity.ok(productMapper.toDto(product));
     }
 
