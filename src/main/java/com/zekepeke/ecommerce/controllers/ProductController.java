@@ -64,16 +64,16 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(
+    public ResponseEntity<ProductDto> updateProduct(
             @PathVariable(name = "id") Long id,
-            @RequestBody UpdateUserRequest request
+            @RequestBody RegisterProductRequest request
     ) {
-        var user = userRepository.findById(id).orElse(null);
-        if (user == null) {
+        var product = productRepository.findById(id).orElse(null);
+        if (product == null) {
             return ResponseEntity.notFound().build();
         }
-        userMapper.update(request, user);
-        userRepository.save(user);
-        return ResponseEntity.ok(userMapper.toDto(user));
+        productMapper.update(request, product);
+        productRepository.save(product);
+        return ResponseEntity.ok(productMapper.toDto(product));
     }
 }
