@@ -7,6 +7,7 @@ import com.zekepeke.ecommerce.dtos.UpdateUserRequest;
 import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.Product;
 import com.zekepeke.ecommerce.mappers.ProductMapper;
+import com.zekepeke.ecommerce.repositories.CategoryRepository;
 import com.zekepeke.ecommerce.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.List;
 public class ProductController {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CategoryRepository categoryRepository;
 
 
     @GetMapping
@@ -50,18 +52,36 @@ public class ProductController {
         return ResponseEntity.ok(productMapper.toDto(product));
     }
 
+//    @PostMapping()
+//    public ResponseEntity<ProductDto> createProduct(
+//            @RequestBody RegisterProductRequest productRequest,
+//            UriComponentsBuilder uriBuilder
+//            ) {
+//        var product = productMapper.toEntity(productRequest);
+//        productRepository.save(product);
+//        var productDto = productMapper.toDto(product);
+//        var uri = uriBuilder.path("/products/{id}").buildAndExpand(productDto.getId()).toUri();
+//
+//        return ResponseEntity.created(uri).body(productDto);
+//    }
+
     @PostMapping()
     public ResponseEntity<ProductDto> createProduct(
             @RequestBody RegisterProductRequest productRequest,
             UriComponentsBuilder uriBuilder
-            ) {
+    ) {
         var product = productMapper.toEntity(productRequest);
         productRepository.save(product);
         var productDto = productMapper.toDto(product);
+        var category = categoryRepository.findById(productDto.getCategoryId()).orElse(null);
+        if (category == null) {
+            return ResponseEntity.badRequest().build();
+        }
         var uri = uriBuilder.path("/products/{id}").buildAndExpand(productDto.getId()).toUri();
 
         return ResponseEntity.created(uri).body(productDto);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(
