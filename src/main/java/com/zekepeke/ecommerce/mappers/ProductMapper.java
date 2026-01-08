@@ -16,5 +16,7 @@ public interface ProductMapper {
     ProductDto toDto(Product product);
 //    Product toEntity(RegisterProductRequest request);
     Product toEntity(ProductDto request);
+
+    @Mapping(target = "category", ignore = true)
     void update(ProductDto update, @MappingTarget Product product);
 }
