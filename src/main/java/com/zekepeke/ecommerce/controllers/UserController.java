@@ -85,7 +85,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(Long id) {
+    public UserDto updateUser(@PathVariable(name = "id") Long id) {
         return null;
     }
 
