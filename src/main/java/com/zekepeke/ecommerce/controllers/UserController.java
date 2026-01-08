@@ -101,7 +101,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable(name = "id") Long id) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) {
             return ResponseEntity.notFound().build();
@@ -113,9 +113,13 @@ public class UserController {
 
     @PostMapping("/{id}/change-password")
     public ResponseEntity<Void> changePassword(
-            @PathVariable Long Id,
+            @PathVariable(name = "id") Long id,
             @RequestBody ChangePasswordRequest request
             ) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
         return null;
     }
 
