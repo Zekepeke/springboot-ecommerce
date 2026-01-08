@@ -122,7 +122,11 @@ public class UserController {
         if (!user.getPassword().equals(request.getOldPassword())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return null;
+
+        user.setPassword(request.getNewPassword());
+        userRepository.save(user);
+
+        return ResponseEntity.noContent().build();
     }
 
 }
