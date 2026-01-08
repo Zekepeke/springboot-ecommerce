@@ -92,7 +92,7 @@ public class UserController {
             ) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) {
-            return ResponseEntity.notFound(user);
+            return ResponseEntity.notFound().build();
         }
     }
 
