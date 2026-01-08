@@ -72,6 +72,7 @@ public class UserController {
     // Use the Request Body to get reuqest bodies like json, js, or html bodies from
     public ResponseEntity<UserDto> createUser(
             @RequestBody RegisterUserRequest userRequest,
+            // used for a new location for a new usser
             UriComponentsBuilder uriBuilder
     ) {
         var user = userMapper.toEntity(userRequest);
