@@ -1,5 +1,6 @@
 package com.zekepeke.ecommerce.controllers;
 
+import com.zekepeke.ecommerce.dtos.ChangePasswordRequest;
 import com.zekepeke.ecommerce.dtos.RegisterUserRequest;
 import com.zekepeke.ecommerce.dtos.UpdateUserRequest;
 import com.zekepeke.ecommerce.dtos.UserDto;
@@ -108,6 +109,14 @@ public class UserController {
 
         userRepository.delete(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<Void> changePassword(
+            @PathVariable Long Id,
+            @RequestBody ChangePasswordRequest request
+            ) {
+        return null;
     }
 
 }
