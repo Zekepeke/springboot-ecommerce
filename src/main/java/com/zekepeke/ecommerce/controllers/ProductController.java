@@ -67,11 +67,10 @@ public class ProductController {
 
     @PostMapping()
     public ResponseEntity<ProductDto> createProduct(
-            @RequestBody RegisterProductRequest productRequest,
+            @RequestBody ProductDto productDto,
             UriComponentsBuilder uriBuilder
     ) {
-        var product = productMapper.toEntity(productRequest);
-        var productDto = productMapper.toDto(product);
+        var product = productMapper.toEntity(productDto);
         var category = categoryRepository.findById(productDto.getCategoryId()).orElse(null);
         if (category == null) {
             return ResponseEntity.badRequest().build();
