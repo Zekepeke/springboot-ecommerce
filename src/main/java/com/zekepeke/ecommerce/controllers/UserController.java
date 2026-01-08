@@ -122,7 +122,8 @@ public class UserController {
         if (!user.getPassword().equals(request.getOldPassword())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
+        // Dont use the Mapper because we use the Mappter to handle large
+        // and complex objects
         user.setPassword(request.getNewPassword());
         userRepository.save(user);
 
