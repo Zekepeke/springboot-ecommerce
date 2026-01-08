@@ -5,6 +5,7 @@ import com.zekepeke.ecommerce.dtos.RegisterProductRequest;
 import com.zekepeke.ecommerce.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
@@ -14,4 +15,5 @@ public interface ProductMapper {
     )
     ProductDto toDto(Product product);
     Product toEntity(RegisterProductRequest request);
+    void update(RegisterProductRequest update, @MappingTarget Product product);
 }

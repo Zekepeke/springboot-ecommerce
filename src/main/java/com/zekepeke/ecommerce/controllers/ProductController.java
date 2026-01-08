@@ -3,6 +3,8 @@ package com.zekepeke.ecommerce.controllers;
 
 import com.zekepeke.ecommerce.dtos.ProductDto;
 import com.zekepeke.ecommerce.dtos.RegisterProductRequest;
+import com.zekepeke.ecommerce.dtos.UpdateUserRequest;
+import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.Product;
 import com.zekepeke.ecommerce.mappers.ProductMapper;
 import com.zekepeke.ecommerce.repositories.ProductRepository;
@@ -59,5 +61,19 @@ public class ProductController {
         var uri = uriBuilder.path("/products/{id}").buildAndExpand(productDto.getId()).toUri();
 
         return ResponseEntity.created(uri).body(productDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(
+            @PathVariable(name = "id") Long id,
+            @RequestBody UpdateUserRequest request
+    ) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userMapper.update(request, user);
+        userRepository.save(user);
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 }
