@@ -83,16 +83,35 @@ public class ProductController {
     }
 
 
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ProductDto> updateProduct(
+//            @PathVariable(name = "id") Long id,
+//            @RequestBody RegisterProductRequest request
+//    ) {
+//        var product = productRepository.findById(id).orElse(null);
+//        if (product == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        productMapper.update(request, product);
+//        productRepository.save(product);
+//        return ResponseEntity.ok(productMapper.toDto(product));
+//    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(
             @PathVariable(name = "id") Long id,
-            @RequestBody RegisterProductRequest request
+            @RequestBody ProductDto request
     ) {
         var product = productRepository.findById(id).orElse(null);
         if (product == null) {
             return ResponseEntity.notFound().build();
         }
+        var category = categoryRepository.findById(request.getCategoryId()).orElse(null);
+        if (category == null) {
+            return ResponseEntity.badRequest().build();
+        }
         productMapper.update(request, product);
+        product.setCategory(category);
         productRepository.save(product);
         return ResponseEntity.ok(productMapper.toDto(product));
     }
