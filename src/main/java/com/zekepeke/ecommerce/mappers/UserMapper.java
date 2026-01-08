@@ -1,6 +1,7 @@
 package com.zekepeke.ecommerce.mappers;
 
 import com.zekepeke.ecommerce.dtos.RegisterUserRequest;
+import com.zekepeke.ecommerce.dtos.UpdateUserRequest;
 import com.zekepeke.ecommerce.dtos.UserDto;
 import com.zekepeke.ecommerce.entities.User;
 import org.mapstruct.Mapper;
@@ -14,4 +15,5 @@ public interface UserMapper {
     )
     UserDto toDto(User user);
     User toEntity(RegisterUserRequest request);
+    User toObject(UpdateUserRequest update);
 }
