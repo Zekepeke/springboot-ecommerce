@@ -86,11 +86,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UpdateUserRequest updateUser(
+    public ResponseEntity<UpdateUserRequest> updateUser(
             @PathVariable(name = "id") Long id,
             @RequestBody UpdateUserRequest request
             ) {
-        return null;
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound(user);
+        }
     }
 
 }
